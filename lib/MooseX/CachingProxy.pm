@@ -108,9 +108,7 @@ sub stop_caching_proxy { LWP::Protocol::PSGI->unregister }
 
 =head1 TODO
 
-- Add an option to clean up the cache directory.
-
-- Better default for caching_proxy_cache_dir attr.
+- Add an option to remove the cache directory?
 
 =head1 SEE ALSO
 
