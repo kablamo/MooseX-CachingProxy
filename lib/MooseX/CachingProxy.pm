@@ -16,10 +16,10 @@ use LWP::Protocol::PSGI;
     with 'MooseX::CachingProxy';
 
     # required
-    sub _build__caching_proxy_url {'http://boringexample.com'};
+    has url => (is => 'ro', isa => 'Str', default => 'http://example.com');
 
     # optional
-    sub _build__caching_proxy_dir {'/tmp/plack-cache'};
+    sub caching_proxy_dir {'/tmp/caching-proxy'};
 
     sub BUILD {$self->start_caching_proxy}
 
@@ -43,32 +43,24 @@ sends the request on to the web server or returns a cached response.
 For this to work, use either L<LWP> or a library that uses LWP (like
 L<WWW::Mechanize>).
 
-This role requires '_build__caching_proxy_url'.
+This role requires 'url'.
 
 =cut
 
-requires '_build__caching_proxy_url';
-
-has _caching_proxy_url => (
-    is         => 'ro',
-    isa        => 'Str',
-    lazy_build => 1,
-);
+requires 'url';
 
 has _caching_proxy_dir => (
     is      => 'rw',
     isa     => 'Path::Class::Dir',
     lazy    => 1,
-    builder => '_build__caching_proxy_dir_or_default',
+    builder => '_build__caching_proxy_dir',
     coerce  => 1,
 );
 
-sub _build__caching_proxy_dir_or_default {
+sub _build_caching_proxy_dir {
     my $self = shift;
-    eval { $self->_build__caching_proxy_dir };
-    $@
-        ? '/tmp/plack-cache'
-        : $self->_build__caching_proxy_dir;
+    eval { $self->caching_proxy_dir };
+    $@ ? '/tmp/caching-proxy' : $self->caching_proxy_dir;
 }
 
 has _caching_proxy_app => (
@@ -90,7 +82,7 @@ sub _build__caching_proxy_app {
 
 =head2 start_caching_proxy()
 
-Start up the caching proxy
+Start intercepting LWP requests with a caching proxy server
 
 =cut
 
@@ -100,7 +92,7 @@ sub start_caching_proxy {
 
 =head2 stop_caching_proxy()
 
-Stop the caching proxy
+Start intercepting LWP requests with a caching proxy server
 
 =cut
 
@@ -109,6 +101,11 @@ sub stop_caching_proxy { LWP::Protocol::PSGI->unregister }
 =head1 TODO
 
 - Add an option to remove the cache directory?
+
+=head1 THANKS
+
+Thanks to Foxtons Ltd for providing the opportunity to write and release the
+original version of this module.
 
 =head1 SEE ALSO
 
