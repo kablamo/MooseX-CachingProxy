@@ -15,11 +15,7 @@ use LWP::Protocol::PSGI;
     use WWW::Mechanize;
     with 'MooseX::CachingProxy';
 
-    # required
     has url => (is => 'ro', isa => 'Str', default => 'http://example.com');
-
-    # optional
-    sub caching_proxy_dir {'/tmp/caching-proxy'};
 
     sub BUILD {$self->start_caching_proxy}
 
@@ -37,15 +33,33 @@ use LWP::Protocol::PSGI;
 
 =head1 DESCRIPTION
 
-This is a Moose role that sends LWP requests through a PSGI app that either
-sends the request on to the web server or returns a cached response.  
-
-For this to work, use either L<LWP> or a library that uses LWP (like
+This is a Moose role that allows you to easily cache responses from remote
+servers.  For this to work, use either L<LWP> or a library that uses LWP (like
 L<WWW::Mechanize>).
+
+The implementation is a mashup of L<Plack::App::Proxy>,
+L<Plack::Middleware::Cache>, and L<LWP::Protocol::PSGI>.  It intercepts any LWP
+requests made and routes them to a PSGI app. The PSGI app will return a cached
+response if available or send the request on to the intended server.
 
 This role requires a 'url' attribute or method.
 
 =cut
+
+=head1 ATTRIBUTES
+
+=head2 url
+
+Required.  All requests are proxied to this server.  Example:
+http://example.com.
+
+=head2 caching_proxy_dir
+
+Optional.  The directory on the local filesystem where responses are cached.
+The default location is '/tmp/caching-proxy'.
+
+=cut
+
 
 requires 'url';
 
@@ -78,6 +92,8 @@ sub _build__caching_proxy_app {
         Plack::App::Proxy->new( remote => $self->url )->to_app;
     };
 }
+
+=head1 METHODS
 
 =head2 start_caching_proxy()
 
