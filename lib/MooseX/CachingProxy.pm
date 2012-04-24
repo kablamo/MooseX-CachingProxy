@@ -43,7 +43,7 @@ sends the request on to the web server or returns a cached response.
 For this to work, use either L<LWP> or a library that uses LWP (like
 L<WWW::Mechanize>).
 
-This role requires 'url'.
+This role requires a 'url' attribute or method.
 
 =cut
 
@@ -99,7 +99,7 @@ sub stop_caching_proxy { LWP::Protocol::PSGI->unregister }
 
 =head1 TODO
 
-- Add an option to remove the cache directory?
+Add an option to remove the cache directory?
 
 =head1 THANKS
 
