@@ -52,12 +52,11 @@ requires 'url';
 has _caching_proxy_dir => (
     is      => 'rw',
     isa     => 'Path::Class::Dir',
-    lazy    => 1,
-    builder => '_build__caching_proxy_dir',
+    lazy_build => 1,
     coerce  => 1,
 );
 
-sub _build_caching_proxy_dir {
+sub _build__caching_proxy_dir {
     my $self = shift;
     eval { $self->caching_proxy_dir };
     $@ ? '/tmp/caching-proxy' : $self->caching_proxy_dir;
@@ -76,7 +75,7 @@ sub _build__caching_proxy_app {
         enable "Cache",    #
             match_url => '^/.*',
             cache_dir => $self->_caching_proxy_dir;
-        Plack::App::Proxy->new( remote => $self->_caching_proxy_url )->to_app;
+        Plack::App::Proxy->new( remote => $self->url )->to_app;
     };
 }
 
