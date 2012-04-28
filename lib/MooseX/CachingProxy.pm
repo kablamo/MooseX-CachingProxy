@@ -1,4 +1,3 @@
-# ABSTRACT: Send LWP requests through a caching proxy server
 package MooseX::CachingProxy;
 use Moose::Role;
 use MooseX::Types::Path::Class;
@@ -7,6 +6,70 @@ use Plack::Builder;
 use Plack::App::Proxy;
 use Plack::Middleware::Cache;
 use LWP::Protocol::PSGI;
+
+requires 'url';
+
+# VERSION
+
+=attr url
+
+Required.  All requests are proxied to this server.  Example:
+http://example.com.
+
+=attr caching_proxy_dir
+
+Optional.  The directory on the local filesystem where responses are cached.
+The default location is '/tmp/caching-proxy'.
+
+=cut
+
+has _caching_proxy_dir => (
+    is      => 'rw',
+    isa     => 'Path::Class::Dir',
+    lazy_build => 1,
+    coerce  => 1,
+);
+
+sub _build__caching_proxy_dir {
+    my $self = shift;
+    eval { $self->caching_proxy_dir };
+    $@ ? '/tmp/caching-proxy' : $self->caching_proxy_dir;
+}
+
+has _caching_proxy_app => (
+    is         => 'ro',
+    isa        => 'CodeRef',
+    lazy_build => 1,
+);
+
+sub _build__caching_proxy_app {
+    my $self = shift;
+    $self->_caching_proxy_dir->mkpath;
+    return builder {
+        enable "Cache",    #
+            match_url => '^/.*',
+            cache_dir => $self->_caching_proxy_dir;
+        Plack::App::Proxy->new( remote => $self->url )->to_app;
+    };
+}
+
+=head2 start_caching_proxy()
+
+Start intercepting LWP requests with a caching proxy server
+
+=cut
+sub start_caching_proxy {
+    LWP::Protocol::PSGI->register( $_[0]->_caching_proxy_app );
+}
+
+=head2 stop_caching_proxy()
+
+Start intercepting LWP requests with a caching proxy server
+
+=cut
+sub stop_caching_proxy { LWP::Protocol::PSGI->unregister }
+
+# ABSTRACT: Send LWP requests through a caching proxy server
 
 =head1 SYNOPSIS
 
@@ -43,75 +106,6 @@ requests made and routes them to a PSGI app. The PSGI app will return a cached
 response if available or send the request on to the intended server.
 
 This role requires a 'url' attribute or method.
-
-=cut
-
-=head1 ATTRIBUTES
-
-=head2 url
-
-Required.  All requests are proxied to this server.  Example:
-http://example.com.
-
-=head2 caching_proxy_dir
-
-Optional.  The directory on the local filesystem where responses are cached.
-The default location is '/tmp/caching-proxy'.
-
-=cut
-
-
-requires 'url';
-
-has _caching_proxy_dir => (
-    is      => 'rw',
-    isa     => 'Path::Class::Dir',
-    lazy_build => 1,
-    coerce  => 1,
-);
-
-sub _build__caching_proxy_dir {
-    my $self = shift;
-    eval { $self->caching_proxy_dir };
-    $@ ? '/tmp/caching-proxy' : $self->caching_proxy_dir;
-}
-
-has _caching_proxy_app => (
-    is         => 'ro',
-    isa        => 'CodeRef',
-    lazy_build => 1,
-);
-
-sub _build__caching_proxy_app {
-    my $self = shift;
-    $self->_caching_proxy_dir->mkpath;
-    return builder {
-        enable "Cache",    #
-            match_url => '^/.*',
-            cache_dir => $self->_caching_proxy_dir;
-        Plack::App::Proxy->new( remote => $self->url )->to_app;
-    };
-}
-
-=head1 METHODS
-
-=head2 start_caching_proxy()
-
-Start intercepting LWP requests with a caching proxy server
-
-=cut
-
-sub start_caching_proxy {
-    LWP::Protocol::PSGI->register( $_[0]->_caching_proxy_app );
-}
-
-=head2 stop_caching_proxy()
-
-Start intercepting LWP requests with a caching proxy server
-
-=cut
-
-sub stop_caching_proxy { LWP::Protocol::PSGI->unregister }
 
 =head1 TODO
 
