@@ -53,7 +53,7 @@ sub _build__caching_proxy_app {
     };
 }
 
-=head2 start_caching_proxy()
+=method start_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
@@ -62,7 +62,7 @@ sub start_caching_proxy {
     LWP::Protocol::PSGI->register( $_[0]->_caching_proxy_app );
 }
 
-=head2 stop_caching_proxy()
+=method stop_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
