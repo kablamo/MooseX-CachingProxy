@@ -1,0 +1,79 @@
+{
+   "abstract" : "Send LWP requests through a caching proxy server",
+   "author" : [
+      "Eric Johnson <cpan at iijo dot org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300000, CPAN::Meta::Converter version 2.112150",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "MooseX-CachingProxy",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "examples",
+         "corpus"
+      ],
+      "package" : [
+         "DB"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.30"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "LWP::Protocol::PSGI" : 0,
+            "Moose::Role" : 0,
+            "MooseX::Types::Path::Class" : 0,
+            "Plack::App::Proxy" : 0,
+            "Plack::Builder" : 0,
+            "Plack::Middleware::Cache" : 0,
+            "perl" : "5.006"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Find" : 0,
+            "File::Temp" : 0,
+            "LWP::UserAgent" : 0,
+            "MooseX::Test::Role" : 0,
+            "Test::HTTP::Server" : 0,
+            "Test::More" : 0,
+            "Test::Most" : 0,
+            "base" : 0,
+            "strict" : 0,
+            "warnings" : 0
+         }
+      }
+   },
+   "provides" : {
+      "MooseX::CachingProxy" : {
+         "file" : "lib/MooseX/CachingProxy.pm",
+         "version" : "0.001"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/kablamo/MooseX-CachingProxy/issues"
+      },
+      "homepage" : "https://github.com/kablamo/MooseX-CachingProxy",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/kablamo/MooseX-CachingProxy.git",
+         "web" : "https://github.com/kablamo/MooseX-CachingProxy"
+      }
+   },
+   "version" : "0.001"
+}
+
