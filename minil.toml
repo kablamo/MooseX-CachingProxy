@@ -1,0 +1,4 @@
+name = "MooseX-CachingProxy"
+# badges = ["travis"]
+module_maker="ModuleBuildTiny"
+
