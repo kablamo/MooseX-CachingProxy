@@ -1,0 +1,89 @@
+Required.  All requests are proxied to this server.  Example:
+http://example.com.
+
+Optional.  The directory on the local filesystem where responses are cached.
+The default location is '/tmp/caching-proxy'.
+
+Start intercepting LWP requests with a caching proxy server
+
+Start intercepting LWP requests with a caching proxy server
+
+# SYNOPSIS
+
+    package MyDownloader;
+    use Moose;
+    use WWW::Mechanize;
+    with 'MooseX::CachingProxy';
+
+    has url => (is => 'ro', isa => 'Str', default => 'http://example.com');
+
+    sub BUILD {$self->start_caching_proxy}
+
+    # this method retrieves web pages via the caching proxy
+    sub get_files { 
+        my $response = WWW::Mechanize->new()->get('http://example.com');
+    }
+
+    # this method retrieves web pages directly from example.com
+    sub get_fresh_files {
+        $self->stop_caching_proxy;
+        my $response = WWW::Mechanize->new()->get('http://example.com');
+        $self->start_caching_proxy;
+    }
+
+# DESCRIPTION
+
+This is a Moose role that allows you to easily cache responses from remote
+servers.  For this to work, use either [LWP](https://metacpan.org/pod/LWP) or a library that uses LWP (like
+[WWW::Mechanize](https://metacpan.org/pod/WWW::Mechanize)).
+
+The implementation is a mashup of [Plack::App::Proxy](https://metacpan.org/pod/Plack::App::Proxy),
+[Plack::Middleware::Cache](https://metacpan.org/pod/Plack::Middleware::Cache), and [LWP::Protocol::PSGI](https://metacpan.org/pod/LWP::Protocol::PSGI).  It intercepts any LWP
+requests made and routes them to a PSGI app. The PSGI app will return a cached
+response if available or send the request on to the intended server.
+
+This role requires a 'url' attribute or method.
+
+# TODO
+
+Add an option to remove the cache directory?
+
+# THANKS
+
+Thanks to Foxtons Ltd for providing the opportunity to write and release the
+original version of this module.
+
+# SEE ALSO
+
+[Plack::App::Proxy](https://metacpan.org/pod/Plack::App::Proxy), [Plack::Middleware::Cache](https://metacpan.org/pod/Plack::Middleware::Cache), [LWP::Protocol::PSGI](https://metacpan.org/pod/LWP::Protocol::PSGI)
+
+# AUTHOR
+
+Eric Johnson <cpan at iijo dot org>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012 by Eric Johnson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+# POD ERRORS
+
+Hey! **The above document had some coding errors, which are explained below:**
+
+- Around line 14:
+
+    Unknown directive: =attr
+
+- Around line 19:
+
+    Unknown directive: =attr
+
+- Around line 56:
+
+    Unknown directive: =method
+
+- Around line 65:
+
+    Unknown directive: =method

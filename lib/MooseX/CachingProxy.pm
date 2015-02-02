@@ -9,7 +9,7 @@ use LWP::Protocol::PSGI;
 
 requires 'url';
 
-# VERSION
+our $VERSION = '0.001'; # VERSION
 
 =attr url
 
@@ -119,6 +119,17 @@ original version of this module.
 =head1 SEE ALSO
 
 L<Plack::App::Proxy>, L<Plack::Middleware::Cache>, L<LWP::Protocol::PSGI>
+
+=head1 AUTHOR
+
+Eric Johnson <cpan at iijo dot org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012 by Eric Johnson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 

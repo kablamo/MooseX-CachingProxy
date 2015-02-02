@@ -6,7 +6,7 @@ on 'test' => sub {
     requires "File::Find", ">= 0";
     requires "File::Temp", ">= 0";
     requires "LWP::UserAgent", ">= 0";
-    requires "MooseX::Test::Role", ">= 0";
+    requires "MooseX::Test::Role", "0.02";
     requires "Test::HTTP::Server", ">= 0";
     requires "Test::More", ">= 0";
     requires "Test::Most", ">= 0";
