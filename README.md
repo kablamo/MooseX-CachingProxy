@@ -1,10 +1,22 @@
+## Attributes
+
+### url
+
 Required.  All requests are proxied to this server.  Example:
 http://example.com.
+
+### caching\_proxy\_dir
 
 Optional.  The directory on the local filesystem where responses are cached.
 The default location is '/tmp/caching-proxy'.
 
+## Methods
+
+### start\_caching\_proxy()
+
 Start intercepting LWP requests with a caching proxy server
+
+### stop\_caching\_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
@@ -67,23 +79,3 @@ This software is copyright (c) 2012 by Eric Johnson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 14:
-
-    Unknown directive: =attr
-
-- Around line 19:
-
-    Unknown directive: =attr
-
-- Around line 56:
-
-    Unknown directive: =method
-
-- Around line 65:
-
-    Unknown directive: =method

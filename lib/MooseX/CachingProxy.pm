@@ -11,12 +11,14 @@ requires 'url';
 
 our $VERSION = '0.001'; # VERSION
 
-=attr url
+=head2 Attributes
+
+=head3 url
 
 Required.  All requests are proxied to this server.  Example:
 http://example.com.
 
-=attr caching_proxy_dir
+=head3 caching_proxy_dir
 
 Optional.  The directory on the local filesystem where responses are cached.
 The default location is '/tmp/caching-proxy'.
@@ -53,7 +55,9 @@ sub _build__caching_proxy_app {
     };
 }
 
-=method start_caching_proxy()
+=head2 Methods
+
+=head3 start_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
@@ -62,7 +66,7 @@ sub start_caching_proxy {
     LWP::Protocol::PSGI->register( $_[0]->_caching_proxy_app );
 }
 
-=method stop_caching_proxy()
+=head3 stop_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
