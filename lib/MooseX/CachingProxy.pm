@@ -9,14 +9,16 @@ use LWP::Protocol::PSGI;
 
 requires 'url';
 
-# VERSION
+our $VERSION = '0.001'; # VERSION
 
-=attr url
+=head2 Attributes
+
+=head3 url
 
 Required.  All requests are proxied to this server.  Example:
 http://example.com.
 
-=attr caching_proxy_dir
+=head3 caching_proxy_dir
 
 Optional.  The directory on the local filesystem where responses are cached.
 The default location is '/tmp/caching-proxy'.
@@ -53,7 +55,9 @@ sub _build__caching_proxy_app {
     };
 }
 
-=method start_caching_proxy()
+=head2 Methods
+
+=head3 start_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
@@ -62,7 +66,7 @@ sub start_caching_proxy {
     LWP::Protocol::PSGI->register( $_[0]->_caching_proxy_app );
 }
 
-=method stop_caching_proxy()
+=head3 stop_caching_proxy()
 
 Start intercepting LWP requests with a caching proxy server
 
@@ -119,6 +123,17 @@ original version of this module.
 =head1 SEE ALSO
 
 L<Plack::App::Proxy>, L<Plack::Middleware::Cache>, L<LWP::Protocol::PSGI>
+
+=head1 AUTHOR
+
+Eric Johnson <cpan at iijo dot org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012 by Eric Johnson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
