@@ -1,25 +1,7 @@
 [![Build Status](https://travis-ci.org/kablamo/MooseX-CachingProxy.svg?branch=master)](https://travis-ci.org/kablamo/MooseX-CachingProxy) [![Coverage Status](https://img.shields.io/coveralls/kablamo/MooseX-CachingProxy/master.svg)](https://coveralls.io/r/kablamo/MooseX-CachingProxy?branch=master)
-## Attributes
+# NAME
 
-### url
-
-Required.  All requests are proxied to this server.  Example:
-http://example.com.
-
-### caching\_proxy\_dir
-
-Optional.  The directory on the local filesystem where responses are cached.
-The default location is '/tmp/caching-proxy'.
-
-## Methods
-
-### start\_caching\_proxy()
-
-Start intercepting LWP requests with a caching proxy server
-
-### stop\_caching\_proxy()
-
-Start intercepting LWP requests with a caching proxy server
+MooseX::CachingProxy - Send LWP requests through a caching proxy server
 
 # SYNOPSIS
 
@@ -57,9 +39,27 @@ response if available or send the request on to the intended server.
 
 This role requires a 'url' attribute or method.
 
-# TODO
+## Attributes
 
-Add an option to remove the cache directory?
+### url
+
+Required.  All requests are proxied to this server.  Example:
+http://example.com.
+
+### caching\_proxy\_dir
+
+Optional.  The directory on the local filesystem where responses are cached.
+The default location is '/tmp/caching-proxy'.
+
+## Methods
+
+### start\_caching\_proxy()
+
+Start intercepting LWP requests with a caching proxy server
+
+### stop\_caching\_proxy()
+
+Start intercepting LWP requests with a caching proxy server
 
 # THANKS
 
