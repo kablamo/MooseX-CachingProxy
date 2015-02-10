@@ -4,7 +4,7 @@
       "Eric Johnson <cpan at iijo dot org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v2.3.0, CPAN::Meta::Converter version 2.132830",
+   "generated_by" : "Minilla/v2.2.0, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -28,7 +28,6 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30",
             "Module::Build::Tiny" : "0.035"
          }
       },
@@ -54,34 +53,30 @@
       },
       "test" : {
          "requires" : {
-            "File::Find" : "0",
-            "File::Temp" : "0",
             "LWP::UserAgent" : "0",
             "MooseX::Test::Role" : "0.02",
             "Test::HTTP::Server" : "0",
-            "Test::More" : "0",
             "Test::Most" : "0",
-            "base" : "0",
-            "strict" : "0",
-            "warnings" : "0"
+            "Test::Pod" : "1.14"
          }
       }
    },
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/jeturcotte/MooseX-CachingProxy/issues"
+         "web" : "https://github.com/kablamo/MooseX-CachingProxy/issues"
       },
-      "homepage" : "https://github.com/jeturcotte/MooseX-CachingProxy",
+      "homepage" : "https://github.com/kablamo/MooseX-CachingProxy",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/jeturcotte/MooseX-CachingProxy.git",
-         "web" : "https://github.com/jeturcotte/MooseX-CachingProxy"
+         "url" : "git://github.com/kablamo/MooseX-CachingProxy.git",
+         "web" : "https://github.com/kablamo/MooseX-CachingProxy"
       }
    },
    "version" : "0.001",
    "x_contributors" : [
-      "Eric Johnson <eric.git@iijo.org>",
-      "J.E. Turcotte <josh@numbersusa.com>"
+      "J.E. Turcotte <josh@numbersusa.com>",
+      "Eric Johnson <github@iijo.org>",
+      "Eric Johnson <eric.git@iijo.org>"
    ]
 }

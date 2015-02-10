@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kablamo/MooseX-CachingProxy.svg?branch=master)](https://travis-ci.org/kablamo/MooseX-CachingProxy) [![Coverage Status](https://img.shields.io/coveralls/kablamo/MooseX-CachingProxy/master.svg)](https://coveralls.io/r/kablamo/MooseX-CachingProxy?branch=master)
 ## Attributes
 
 ### url
