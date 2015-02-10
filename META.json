@@ -48,16 +48,20 @@
             "Plack::App::Proxy" : "0",
             "Plack::Builder" : "0",
             "Plack::Middleware::Cache" : "0",
-            "perl" : "5.006"
+            "perl" : "5.008_001"
          }
       },
       "test" : {
          "requires" : {
             "LWP::UserAgent" : "0",
             "MooseX::Test::Role" : "0.02",
+            "Test::CPAN::Meta" : "0",
             "Test::HTTP::Server" : "0",
+            "Test::MinimumVersion::Fast" : "0",
             "Test::Most" : "0",
-            "Test::Pod" : "1.14"
+            "Test::PAUSE::Permissions" : "0",
+            "Test::Pod" : "1.14",
+            "Test::Spellunker" : "0"
          }
       }
    },
@@ -73,7 +77,8 @@
          "web" : "https://github.com/kablamo/MooseX-CachingProxy"
       }
    },
-   "version" : "0.001",
+   "version" : "0.002",
+   "x_authority" : "cpan:KABLAMO",
    "x_contributors" : [
       "J.E. Turcotte <josh@numbersusa.com>",
       "Eric Johnson <github@iijo.org>",

@@ -9,7 +9,7 @@ use LWP::Protocol::PSGI;
 
 requires 'url';
 
-our $VERSION = '0.001'; # VERSION
+our $VERSION = '0.002'; # VERSION
 
 =head1 NAME
 
